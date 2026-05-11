@@ -39,3 +39,6 @@
 *.log
 core
 core.*
+
+# Stray build artifacts at source root
+/src/main
