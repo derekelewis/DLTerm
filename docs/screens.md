@@ -82,7 +82,9 @@ to make easy):
    to map `kStartQuote → std::make_unique<QuoteScreen>(...)`.
 
 5. **Register the source file.** Edit `CMakeLists.txt` and add
-   `src/quote_screen.cc` to `add_executable(dlterm ...)`.
+   `src/quote_screen.cc` to `dlterm_core`'s source list in
+   `CMakeLists.txt` (screens are part of the core lib, not the
+   `DLTerm` executable target).
 
 6. **Update docs.** Add an entry to the "Catalog of existing screens"
    section below and the command reference in `docs/commands.md`.

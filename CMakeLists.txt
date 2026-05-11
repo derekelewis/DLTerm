@@ -160,21 +160,22 @@ if(DLTERM_HAS_TWS)
 endif()
 
 # ---------------------------------------------------------------------
-# dlterm: the executable.
+# DLTerm: the executable. (Internal libs keep their lowercase names —
+# dlterm_core, dlterm_tws, dlterm_tests.)
 # ---------------------------------------------------------------------
 if(DLTERM_BUILD_APP)
-  add_executable(dlterm src/main.cc)
-  target_compile_options(dlterm PRIVATE
+  add_executable(DLTerm src/main.cc)
+  target_compile_options(DLTerm PRIVATE
     -Wall -Wextra -Wpedantic -Wno-unused-parameter
   )
-  target_link_libraries(dlterm PRIVATE dlterm_core dlterm_tws)
+  target_link_libraries(DLTerm PRIVATE dlterm_core dlterm_tws)
 
   file(COPY
       "${DLTERM_TWSAPI_DIR}/libTwsSocketClient.dylib"
       "${DLTERM_TWSAPI_DIR}/lib/libbid.dylib"
     DESTINATION "${CMAKE_BINARY_DIR}")
 
-  set_target_properties(dlterm PROPERTIES
+  set_target_properties(DLTerm PROPERTIES
     BUILD_RPATH "@executable_path"
     INSTALL_RPATH "@executable_path"
   )

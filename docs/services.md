@@ -84,7 +84,7 @@ void Dispatcher::historicalNews(int reqId, ...) override {
 To debug TWS interactions:
 
 ```bash
-DLTERM_LOG=info,tws.dispatch=trace ./build/dlterm 2>&1 | tee run.log
+DLTERM_LOG=info,tws.dispatch=trace ./build/DLTerm 2>&1 | tee run.log
 ```
 
 Then in the running app: type a command, watch outbound `tws` DEBUG

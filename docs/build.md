@@ -13,7 +13,7 @@ cmake -S . -B build -G Ninja
 cmake --build build -j
 
 # Run
-./build/dlterm
+./build/DLTerm
 
 # Run the TWS smoketest (no SDL window)
 ./build/tws_smoketest
@@ -76,10 +76,10 @@ prebuilt dylibs:
 - `libTwsSocketClient.dylib` — the actual client library.
 - `lib/libbid.dylib` — Intel BID floating-point library (transitive).
 
-Both get copied to `${CMAKE_BINARY_DIR}` next to the `dlterm` binary,
+Both get copied to `${CMAKE_BINARY_DIR}` next to the `DLTerm` binary,
 and the executable's rpath is set to `@executable_path` so they
 resolve at runtime. This means you can run the binary in place
-(`./build/dlterm`) without setting `DYLD_LIBRARY_PATH`.
+(`./build/DLTerm`) without setting `DYLD_LIBRARY_PATH`.
 
 The include path is `$DLTERM_TWSAPI_DIR` plus
 `$DLTERM_TWSAPI_DIR/protobufUnix` (for the generated proto headers).
@@ -90,7 +90,7 @@ The include path is `$DLTERM_TWSAPI_DIR` plus
 |---|---|---|
 | `dlterm_core` (STATIC LIB) | log, layout, widgets, screens, render backend (SDL impl) | Logic + SDL drawing. No TWS dep. |
 | `dlterm_tws` (STATIC LIB) | `ibkr_client.cc`, `services/*` | TWS API integration. Built only when the dylib is present. |
-| `dlterm` (EXE) | `src/main.cc` | The app. Links both libs. Built when `DLTERM_BUILD_APP=ON` (default). |
+| `DLTerm` (EXE) | `src/main.cc` | The app. Links both libs. Built when `DLTERM_BUILD_APP=ON` (default). |
 | `dlterm_tests` (EXE) | `tests/**/*_test.cc` + GoogleTest | Test suite. Built when `DLTERM_BUILD_TESTS=ON` (default). |
 | `tws_smoketest` (EXE) | `src/tws_smoketest.cc` | Headless TWS connect / status diagnostic. Requires the TWS dylib. |
 | `dlterm_layout_selftest` | `src/layout.cc` (with `DLTERM_LAYOUT_SELFTEST=1`) | Legacy; superseded by `tests/unit/layout_test.cc`. Set `-DDLTERM_LAYOUT_SELFTEST=ON`. |
@@ -169,8 +169,10 @@ The smoketest reads the TWS vars.
 
 Two edits:
 
-1. Add it to the `add_executable(dlterm ...)` source list in
-   `CMakeLists.txt`.
+1. Add it to whichever library it belongs to in `CMakeLists.txt` —
+   `dlterm_core` for SDL/widget/screen code, `dlterm_tws` for TWS
+   services. The `DLTerm` executable target itself is just
+   `src/main.cc`.
 2. If the new file pulls in TWS or protobuf headers, also add the
    `set_source_files_properties(... COMPILE_OPTIONS "-w")` exception
    for that file. Otherwise leave it on default warnings — the strict

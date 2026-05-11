@@ -136,7 +136,8 @@ Example: a `QUOTE` command that shows a live quote box for a symbol.
    ```
 
 5. **`CMakeLists.txt`** — add `src/quote_screen.cc` to the
-   `add_executable(dlterm ...)` list.
+   `dlterm_core` source list (screens are part of the core lib, not the
+   `DLTerm` executable target).
 
 6. **`docs/commands.md`** (this file) — add a row to the table above.
 

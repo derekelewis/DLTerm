@@ -92,7 +92,7 @@ Gateway via the C++ TWS API.
 cmake -B build
 cmake --build build -j
 DLTERM_TWS_HOST=127.0.0.1 DLTERM_TWS_PORT=4002 DLTERM_TWS_CLIENT_ID=1 \
-  ./build/dlterm
+  ./build/DLTerm
 ```
 
 The TWS API headers + prebuilt dylib come from

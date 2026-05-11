@@ -14,8 +14,8 @@ EWrapper inbound callback under category `tws.dispatch`, plus a
 `DEBUG` log for every outbound facade call under `tws`. Enable with:
 
 ```bash
-DLTERM_LOG=info,tws=debug,tws.dispatch=trace ./build/dlterm 2>&1 | tee run.log
-DLTERM_LOG_FILE=run.log ./build/dlterm        # (alternative) file-only sink
+DLTERM_LOG=info,tws=debug,tws.dispatch=trace ./build/DLTerm 2>&1 | tee run.log
+DLTERM_LOG_FILE=run.log ./build/DLTerm        # (alternative) file-only sink
 ```
 
 Or open the `DEBUG` overlay screen in-app (`DEBUG` command) to view
