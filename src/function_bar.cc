@@ -103,6 +103,35 @@ std::string FormatInfo(const TerminalInfo& info) {
   return out;
 }
 
+std::string FormatHelp() {
+  return
+      "DLTERM 0.1                                                       HELP\n"
+      "\n"
+      "COMMAND                EFFECT\n"
+      "\n"
+      "<SYMBOL>               Live quote: bid/ask/last/sizes/high/low/volume\n"
+      "<SYMBOL> FUT           Live quote on a continuous future (CL, ES, ...)\n"
+      "<SYMBOL> NEWS          Per-ticker news feed (50 historical + live)\n"
+      "<SYMBOL> CHART         1-day 5-min candlestick chart\n"
+      "<SYMBOL> FUT CHART     Continuous-future chart (polled every 30s)\n"
+      "\n"
+      "NEWS                   BroadTape general news feed\n"
+      "POS                    Portfolio: positions + live P&L, multi-account\n"
+      "INFO                   Window / grid / font diagnostics\n"
+      "DEBUG                  Live overlay: frame timing, TWS state, log tail\n"
+      "HELP                   This screen\n"
+      "EXIT / QUIT            Terminate the app\n"
+      "\n"
+      "KEYS\n"
+      "\n"
+      "RETURN                 Submit command\n"
+      "ESC                    Return to splash (or close modal)\n"
+      "CMD+Q                  Terminate the app\n"
+      "\n"
+      "Symbols are 1-8 chars, letters + '.'. Futures local symbols\n"
+      "like CLM6 / ESM26 are auto-detected.\n";
+}
+
 void Touch(FunctionBar* bar) { bar->last_change_ms = SDL_GetTicks(); }
 
 }  // namespace
@@ -123,6 +152,11 @@ CommandResult RunCommand(std::string_view command, const TerminalInfo& info) {
     if (verb == "INFO") {
       r.kind = CommandKind::kStaticText;
       r.text = FormatInfo(info);
+      return r;
+    }
+    if (verb == "HELP") {
+      r.kind = CommandKind::kStaticText;
+      r.text = FormatHelp();
       return r;
     }
     if (verb == "NEWS") {

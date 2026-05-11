@@ -129,6 +129,16 @@ TEST(RunCommand, BareUnknownFuturesRootReportsStatus) {
   EXPECT_NE(r.status.find("Unknown futures root"), std::string::npos);
 }
 
+TEST(RunCommand, HelpVerbProducesStaticText) {
+  auto r = RunCommand("HELP", MakeInfo());
+  EXPECT_EQ(r.kind, CommandKind::kStaticText);
+  EXPECT_NE(r.text.find("HELP"), std::string::npos);
+  EXPECT_NE(r.text.find("<SYMBOL>"), std::string::npos);
+  EXPECT_NE(r.text.find("CHART"), std::string::npos);
+  EXPECT_NE(r.text.find("NEWS"), std::string::npos);
+  EXPECT_NE(r.text.find("EXIT"), std::string::npos);
+}
+
 TEST(RunCommand, ExitVerbQuits) {
   auto r = RunCommand("EXIT", MakeInfo());
   EXPECT_EQ(r.kind, CommandKind::kQuit);

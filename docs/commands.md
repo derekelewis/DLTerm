@@ -21,6 +21,7 @@ adding new verbs.
 | `<SYMBOL> CHART` | 1-day, 5-min candlesticks, live-updating. Parser auto-detects futures local symbols (alpha root + month code + 1-2 digit year, e.g. `CLM6`, `ESM26`) and routes them through the live FUT path; everything else is treated as a stock. | `ChartScreen(symbol, kStock or kFutureLocal)` |
 | `<SYMBOL> FUT CHART` | Continuous-futures chart (historical-only, no live tail — polled every 30s). Symbol must be in the `ExchangeForContinuousFuture` table — `CL`, `ES`, `GC`, `ZN`, etc. | `ChartScreen(symbol, kContinuousFuture)` |
 | `DEBUG` | Live diagnostics overlay: frame timing, TWS state, log tail. | `DebugScreen` |
+| `HELP` | List every command + key binding. Static text. | `BodyScreen` (static, generated in parser) |
 | `EXIT` / `QUIT` | Terminate the app cleanly (same as ⌘Q or closing the window). | (none — sets `running = false` in `main.cc`) |
 
 `<SYMBOL>` is 1–8 characters, ASCII letters plus `.`. Anything else
@@ -165,9 +166,9 @@ Unknown commands set `r.status = "Unknown command: <joined tokens>"`,
 and `main.cc` flashes that in the function bar instead of swapping
 the screen.
 
-There's no `HELP` command yet. The body of the default screen lists
-the available verbs (the sample text); typing `INFO` shows
-diagnostics.
+Type `HELP` to see the full command + key-binding reference (rendered
+via `BodyScreen` from a string built by `FormatHelp()` in
+`src/function_bar.cc`). `INFO` shows window/grid/font diagnostics.
 
 ## Connection lifecycle
 
