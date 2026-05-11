@@ -1,0 +1,30 @@
+name: build
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  core-and-tests:
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install build deps
+        run: |
+          brew update
+          brew install cmake sdl3 protobuf
+
+      - name: Configure (no app, no TWS)
+        run: |
+          cmake -B build \
+            -DDLTERM_BUILD_APP=OFF \
+            -DDLTERM_BUILD_TESTS=ON
+
+      - name: Build core + tests
+        run: cmake --build build -j --target dlterm_tests
+
+      - name: Run tests
+        run: ctest --test-dir build --output-on-failure

@@ -1,0 +1,41 @@
+# Build directories (out-of-tree CMake builds)
+/build/
+/build-*/
+/cmake-build-*/
+
+# CMake artifacts that occasionally land at the source root
+/CMakeCache.txt
+/CMakeFiles/
+/cmake_install.cmake
+/CTestTestfile.cmake
+/Testing/
+/compile_commands.json
+
+# Tooling caches
+/.cache/
+.ccls-cache/
+
+# Downloaded font (CMake fetches it into assets/fonts/ at configure time)
+/assets/fonts/*.ttf
+/assets/fonts/*.otf
+
+# Editor / IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Claude Code per-machine state — keep shared config (settings.json) committable,
+# but ignore local overrides and conversation/plan caches.
+.claude/settings.local.json
+.claude/.session*
+.claude/cache/
+
+# macOS
+.DS_Store
+
+# Logs and core dumps
+*.log
+core
+core.*
